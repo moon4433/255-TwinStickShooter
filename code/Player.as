@@ -36,7 +36,19 @@ package code {
 			if(KeyboardInput.keyDown) y += speed * Time.dtScaled; // if player is prompted to move down do this times deltaTime
 			
 			
-			
+				/** this entire block is to stop player from leaving arena */
+				if(!stage || y < 24) {
+				y += speed * Time.dtScaled;
+				} 
+				if(!stage || x < 24) {
+				x += speed * Time.dtScaled;
+				} 
+				if(!stage || x > (stage.stageWidth - 24)) {
+				x -= speed * Time.dtScaled;
+				} 
+				if(!stage || y > (stage.stageHeight - 24)) {
+				y -= speed * Time.dtScaled;
+				}
 			
 		
 		} // end update

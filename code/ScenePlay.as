@@ -232,31 +232,31 @@ package code {
 			
 			/** if player has the charge fire power up */
 			if (chargeFire) {
-				expandWidth += .05;
-				expandHeight += .05;
-				expandRadius += .5;
+				expandWidth += .05; // expands width by .05
+				expandHeight += .05; // expands height by .05
+				expandRadius += .5; //expands radius by .5
 				if(expandWidth >= 3 && expandHeight >= 3 && expandRadius >= 30){ // if the width height and radius get past the max size, hold it at the max
-					expandWidth = 3;
-					expandHeight = 3;
-					expandRadius = 30;
+					expandWidth = 3; // max width is 3
+					expandHeight = 3; // max height is 3
+					expandRadius = 30; // max radius is 30
 				}
 			}
 			
 			/** if the player has tri fire power up  set a timer to count down how long player has it*/
 			if(hasTriFire){
-			tPowerupTimer -= Time.dtScaled;
-			if(tPowerupTimer <= 0){
-				hasTriFire = false;
-				tPowerupTimer = 10;
+			tPowerupTimer -= Time.dtScaled; // count down timer
+			if(tPowerupTimer <= 0){ // if time equals or is less than 0 then
+				hasTriFire = false; // player no longer has power up
+				tPowerupTimer = 10; // resets timer
 				}
 			}
 			/** if the player has rapid fire power up  set a timer to count down how long player has it*/
 			if(hasRapidFire){
-			rPowerupTimer -= Time.dtScaled;
-			if(rPowerupTimer <= 0){
-				rapidFire = false;
-				hasRapidFire = false;
-				rPowerupTimer = 10;
+			rPowerupTimer -= Time.dtScaled; // count down timer
+			if(rPowerupTimer <= 0){ // if time equals or is less than 0 then
+				rapidFire = false; // rapid fire cant be accessed anymore
+				hasRapidFire = false; // player no longer has power up
+				rPowerupTimer = 10; // resets timer
 				}
 			}
 			/** if the player has Charge fire power up  set a timer to count down how long player has it*/
@@ -303,29 +303,32 @@ package code {
 			addChild(txt2);
 		}
 
-		
+		/**
+		  * this function handles when ever the mousebutton is pressed
+		  * @param e passes any mouse eventts into this function to access
+		  */
 		private function downHandleClick(e: MouseEvent): void {
 			
+			/** if has rapid fire */
 			if(hasRapidFire){
-			rapidFire = true;
-				
+			rapidFire = true; // set rapid fire to active
 			}	
+			/** else if has charge fire */
 			else if (hasChargeFire) {
-			chargeFire = true;
-				
-
+			chargeFire = true; // set charge fire to active
 			}
+			/** else if have has tri fire */
 			else if(hasTriFire){
-				spawnTriShot();
-				var bli3: SoundBlip3 = new SoundBlip3();
-				bli3.play();
-				
+				spawnTriShot(); // spawns tri fire to active
+				var bli3: SoundBlip3 = new SoundBlip3(); // store trifire sound in a var
+				bli3.play(); // play tri fire sound
 			}
+			/** else spawn bullet */
 			else
 			{
-				spawnBullet();
-				var blip4: SoundBlip4 = new SoundBlip4();
-				blip4.play();
+				spawnBullet(); // spawn bullet
+				var blip4: SoundBlip4 = new SoundBlip4(); // stores sound in a var 
+				blip4.play(); // plays sound
 			}
 		}
 		/**
@@ -347,13 +350,13 @@ package code {
 				chargeShot.radius += expandRadius; // setts new radius
 				addChildAt(chargeShot, 0); // adds the object
 				bullets.push(chargeShot); // pushes it into bullets array
-				expandWidth = 0; 
-				expandHeight = 0;
-				expandRadius = 0;
-				chargeFire = false;
+				expandWidth = 0; // sets the expand back to 0
+				expandHeight = 0; // sets the expand back to 0
+				expandRadius = 0; // sets the expand back to 0
+				chargeFire = false; // tells charge fire that it is no longer active
 				
-				var blip2: SoundBlip2 = new SoundBlip2();
-				blip2.play();
+				var blip2: SoundBlip2 = new SoundBlip2(); // var hold a sound for charge fire
+				blip2.play(); // plays sound for charge fire
 			}
 		}
 		
@@ -479,46 +482,48 @@ package code {
 			bulletsBad.push(en2B4);
 		}
 		
+		/** this funtion handles the spawning of charge powerups */
 		public function spawnCPowerUp():void {
-		cPowerUpDelay -= Time.dtScaled;
+		cPowerUpDelay -= Time.dtScaled; // this is the count down timer for c powerup
 			if(cPowerUpDelay <= 0){
-				var cPower:cPowerUp = new cPowerUp();
-				addChild(cPower);
-				cPowerUps.push(cPower);
-				cPowerUpDelay = 15;
-				hasCPowerSpawned = true;
+				var cPower:cPowerUp = new cPowerUp(); // adds c powerup to a var
+				addChild(cPower); // add cpower to scene
+				cPowerUps.push(cPower); // pushes power up into array
+				cPowerUpDelay = 15; // reset delay timer
+				hasCPowerSpawned = true; // stops any other power ups from spawning if player has power ups
 				}
 		}	
 		
+		/** this funtion handles the spawning of tri powerups */
 		public function spawnTPowerUp():void {
 			
-		tPowerUpDelay -= Time.dtScaled;
+		tPowerUpDelay -= Time.dtScaled; // this is the count down timer for t powerup
 			if(tPowerUpDelay <= 0){
-				var tPower:tPowerUp = new tPowerUp();
-				addChild(tPower);
-				tPowerUps.push(tPower);
-				tPowerUpDelay = 45;
-				hasTPowerSpawned = true;
+				var tPower:tPowerUp = new tPowerUp(); // adds t powerup to a var
+				addChild(tPower); // add tpower to scene
+				tPowerUps.push(tPower); // pushes power up into array
+				tPowerUpDelay = 45; // reset delay timer
+				hasTPowerSpawned = true; // stops any other power ups from spawning if player has power ups
 				}
 				
 		}
-		
+		/** this funtion handles the spawning of rapid powerups */
 		public function spawnRPowerUp():void {
 
-		rPowerUpDelay -= Time.dtScaled;
+		rPowerUpDelay -= Time.dtScaled; // this is the count down timer for r powerup
 			if(rPowerUpDelay <= 0){
-				var rPower:rPowerUp = new rPowerUp();
-				addChild(rPower);
-				rPowerUps.push(rPower);
-				rPowerUpDelay = 30;
-				hasRPowerSpawned = true;
+				var rPower:rPowerUp = new rPowerUp(); // adds r powerup to a var
+				addChild(rPower); // add rpower to scene
+				rPowerUps.push(rPower); // pushes power up into array
+				rPowerUpDelay = 30; // reset delay timer
+				hasRPowerSpawned = true; // stops any other power ups from spawning if player has power ups
 				}
 		}
-		
+		/** this function is responsible for updating any rapid powerups */
 		public function updateCPowerUp():void {
 			
 			for (var i = cPowerUps.length - 1; i >= 0; i--) {
-				cPowerUps[i].update();
+				cPowerUps[i].update(); // updates any rapid power up
 				if (cPowerUps[i].isDead) {
 					// 1. remove the object from the scene-graph
 					removeChild(cPowerUps[i]);
@@ -527,15 +532,16 @@ package code {
 					// if the variable is an array,
 					// remove the object from the array
 					cPowerUps.splice(i, 1);
-					hasCPowerSpawned = false;
+					hasCPowerSpawned = false; // sets has c power spawned to false
 				}
 			}
 		}
 		
+		/** this function is responsible for updating any rapid powerups */
 		public function updateRPowerUp():void {
 			
 			for (var i = rPowerUps.length - 1; i >= 0; i--) {
-				rPowerUps[i].update();
+				rPowerUps[i].update(); // updates any rapid power up
 				if (rPowerUps[i].isDead) {
 					// 1. remove the object from the scene-graph
 					removeChild(rPowerUps[i]);
@@ -544,15 +550,16 @@ package code {
 					// if the variable is an array,
 					// remove the object from the array
 					rPowerUps.splice(i, 1);
-					hasRPowerSpawned = false;
+					hasRPowerSpawned = false; // sets has r power spawned to false
 				}
 			}
 		}
 		
+		/** this function is responsible for updating any tri powerups */
 		public function updateTPowerUp():void {
 			
 			for (var i = tPowerUps.length - 1; i >= 0; i--) {
-				tPowerUps[i].update();
+				tPowerUps[i].update(); // updates any tri power up
 				if (tPowerUps[i].isDead) {
 					// 1. remove the object from the scene-graph
 					removeChild(tPowerUps[i]);
@@ -561,7 +568,7 @@ package code {
 					// if the variable is an array,
 					// remove the object from the array
 					tPowerUps.splice(i, 1);
-					hasTPowerSpawned = false;
+					hasTPowerSpawned = false; // sets has t power spawned to false
 				}
 			}
 		}
@@ -570,7 +577,7 @@ package code {
 		public function updateBullets(): void {
 			// update everything:
 			for (var i = bullets.length - 1; i >= 0; i--) {
-				bullets[i].update();
+				bullets[i].update(); // updates any bullets
 				if (bullets[i].isDead) {
 					// 1. remove the object from the scene-graph
 					removeChild(bullets[i]);
@@ -595,13 +602,14 @@ package code {
 		/** this function handles spawning of the first enemy */
 		private function spawnEnemyOne(): void {
 			
+			/** if game is playing then enemy is alive */
 			if(isEnemiesAlive){
-				delaySpawn -= Time.dtScaled;
-				if (delaySpawn <= 0) {
+				delaySpawn -= Time.dtScaled; // countdown timer for enemy spawn
+				if (delaySpawn <= 0) { //if timer gets less than or equal to 0 then
 					var en1:Enemy1 = new Enemy1();
-					addChild(en1);
+					addChild(en1);					// add child to scene
 					enemies.push(en1);
-					delaySpawn = (int)(Math.random() * 7 + 2);
+					delaySpawn = (int)(Math.random() * 7 + 2); //set random number to timer
 				}
 			}
 		  
@@ -609,13 +617,14 @@ package code {
 		/** this function handles spawning of the second enemy */
 		private function spawnEnemyTwo(): void {
 			
+			/** if game is playing then enemy is alive */
 			if(isEnemiesAlive){
-				delaySpawn2 -= Time.dtScaled;
-				if (delaySpawn2 <= 0) {
+				delaySpawn2 -= Time.dtScaled; // countdown timer for enemy spawn
+				if (delaySpawn2 <= 0) {  //if timer gets less than or equal to 0 then
 					var en2:Enemy2 = new Enemy2();
-					addChild(en2);
+					addChild(en2);					// add child to scene
 					enemies.push(en2);
-					delaySpawn2 = (int)(Math.random() * 7 + 2);
+					delaySpawn2 = (int)(Math.random() * 7 + 2);//set random number to timer
 				}
 			}
 		  
@@ -624,21 +633,23 @@ package code {
 		/** this function handles spawning of the third enemy */
 		private function spawnEnemyThree(): void {
 			
+			/** if game is playing then enemy is alive */
 			if(isEnemiesAlive){
-				delaySpawn3 -= Time.dtScaled;
-				if (delaySpawn3 <= 0) {
+				delaySpawn3 -= Time.dtScaled; // countdown timer for enemy spawn
+				if (delaySpawn3 <= 0) {  //if timer gets less than or equal to 0 then
 					var en3:Enemy3 = new Enemy3();
-					addChild(en3);
+					addChild(en3);					// add child to scene
 					enemies.push(en3);
-					delaySpawn3 = (int)(Math.random() * 7 + 2);
+					delaySpawn3 = (int)(Math.random() * 7 + 2); //set random number to timer
 				}
 			}
 		  
 		}
 
+		/** this function updates any enemies */
 		private function updateEnemies(): void {
 			for (var i = enemies.length - 1; i >= 0; i--) {
-				enemies[i].update(this);
+				enemies[i].update(this); // this updates any enemies in enemies array
 				
 				if (enemies[i].isDead) {
 					// remove it!!
@@ -654,66 +665,71 @@ package code {
 			}
 		}
 
-		
+		/** this function handles some of the collisions between player and enemies, also bullets and enemies */ 
 		private function collisionDetection(): void {
-			for (var i: int = 0; i < enemies.length; i++) {
-				for (var j: int = 0; j < bullets.length; j++) {
+			for (var i: int = 0; i < enemies.length; i++) { // for loop to iterate through enemies array
+				for (var j: int = 0; j < bullets.length; j++) { // for loop to iterate through bullets array
 
-					var dx: Number = enemies[i].x - bullets[j].x;
+					/** checks for collision between enemies and bullets */
+					var dx: Number = enemies[i].x - bullets[j].x; 
 					var dy: Number = enemies[i].y - bullets[j].y;
 					var dis: Number = Math.sqrt(dx * dx + dy * dy);
 					if (dis < enemies[i].radius + bullets[j].radius) {
 
-						enemies[i].isDead = true;
-						bullets[j].isDead = true;
-						playerScore += 100;
+						enemies[i].isDead = true; // sets enemies to is dead
+						bullets[j].isDead = true; // sets bullets to is dead
+						playerScore += 100; // adds 100 to players score
 						
 					}
 				}
 			}
 		
-			for (var v: int = 0; v < enemies.length; v++) {
+			for (var v: int = 0; v < enemies.length; v++) { // for loop to iterate through enemies array
 				
+					/** checks for collision between enemies and player */
 					var tx: Number = enemies[v].x - player.x;
 					var ty: Number = enemies[v].y - player.y;
 					var tdis: Number = Math.sqrt(tx * tx + ty * ty);
 					if (tdis < enemies[v].radius + player.radius) {
 
-						enemies[v].isDead = true;
-						playerHealth -= 50;
+						enemies[v].isDead = true; // sets enemies to dead
+						playerHealth -= 50; // subracts 50 health from player
 
 					}
 				}
 			} // end enemy collision detection
 		
-		
+		/** this function handles some of the collisions between player and enemy bullets*/
 		private function shipCollisionDetection(): void {
-			for (var i: int = 0; i < bulletsBad.length; i++) {
+			for (var i: int = 0; i < bulletsBad.length; i++) { // for loop to iterate through enemy bullets
 
+				/** checks for collision between player and enemy bullets */
 				var sx: Number = bulletsBad[i].x - player.x;
 				var sy: Number = bulletsBad[i].y - player.y;
 				var sDis: Number = Math.sqrt(sx * sx + sy * sy);
 				if (sDis < player.radius + bulletsBad[i].radius) {
-					// collision!
-					playerHealth -= 20;
-					bulletsBad[i].isDead = true;
-					var start: StartButton = new StartButton();
-					start.play();
+					
+					
+					playerHealth -= 20; // remove 20 from player health
+					bulletsBad[i].isDead = true; // turns bad bullets to dead
+					var start: StartButton = new StartButton(); // holds ships hit sound
+					start.play(); // plays hits sound
 				}
 			}
 		} // end shipCollision
 		
+		/** this function handles some of the collisions between player and c power up */
 		private function powerupCCollisionDetection():void {
-			for (var i: int = 0; i < cPowerUps.length; i++) {
+			for (var i: int = 0; i < cPowerUps.length; i++) { // for loop to iterate through c power up and player
 				
-
+				/** checks for collision between player and c power up */
 				var cx: Number = cPowerUps[i].x - player.x;
 				var cy: Number = cPowerUps[i].y - player.y;
 				var cDis: Number = Math.sqrt(cx * cx + cy * cy);
 				if (cDis < player.radius + cPowerUps[i].radius) {
-					// collision!
 					
-					cPowerUps[i].isDead = true;
+					
+					// turns all other powerups but this one off
 					hasChargeFire = true;
 					rapidFire = false;
 					hasRapidFire = false;
@@ -722,16 +738,17 @@ package code {
 			}
 		}
 		
+		/** this function handles some of the collisions between player and r power up */
 		private function powerupRCollisionDetection():void {
-			for (var i: int = 0; i < rPowerUps.length; i++) {
+			for (var i: int = 0; i < rPowerUps.length; i++) { // for loop to iterate through r power up and player
 				
-
+				/** checks for collision between player and r power up */
 				var rx: Number = rPowerUps[i].x - player.x;
 				var ry: Number = rPowerUps[i].y - player.y;
 				var rDis: Number = Math.sqrt(rx * rx + ry * ry);
 				if (rDis < player.radius + rPowerUps[i].radius) {
-					// collision!
-
+					
+					// turns all other powerups but this one off
 					rPowerUps[i].isDead = true;
 					hasChargeFire = false;
 					hasRapidFire = true;
@@ -740,16 +757,18 @@ package code {
 			}
 		}
 		
+		/** this function handles some of the collisions between player and t power up */
 		private function powerupTCollisionDetection():void {
-			for (var i: int = 0; i < tPowerUps.length; i++) {
+			for (var i: int = 0; i < tPowerUps.length; i++) {// for loop to iterate through t power up and player
 				
-
+				/** checks for collision between player and t power up */
 				var tx: Number = tPowerUps[i].x - player.x;
 				var ty: Number = tPowerUps[i].y - player.y;
 				var tDis: Number = Math.sqrt(tx * tx + ty * ty);
 				if (tDis < player.radius + tPowerUps[i].radius) {
-					// collision!
 					
+					
+					// turns all other powerups but this one off
 					tPowerUps[i].isDead = true;
 					hasChargeFire = false;
 					rapidFire = false;
@@ -760,15 +779,21 @@ package code {
 			}
 		}
 
+		/** this function handles adding event listeners to the scene */
 		override public function onBegin(): void {
 
+			/** adds event listener for when mouse is pressed down */
 			stage.addEventListener(MouseEvent.MOUSE_DOWN, downHandleClick);
+			/** adds event listener for when mouse is released */
 			stage.addEventListener(MouseEvent.MOUSE_UP, upHandleClick);
 			
 		}
+		/** this function handles remove event listeners to the scene */
 		override public function onEnd(): void {
 			isEnemiesAlive = false;
+			/** removes event listener for when mouse is pressed down */
 			stage.removeEventListener(MouseEvent.MOUSE_DOWN, downHandleClick);
+			/** removes event listener for when mouse is released */
 			stage.removeEventListener(MouseEvent.MOUSE_UP, upHandleClick);
 		}
 
