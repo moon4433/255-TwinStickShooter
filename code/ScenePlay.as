@@ -31,11 +31,11 @@ package code {
 		var powerupSlowmoTimer: Number = 0;
 
 		/** this var is to delay the spawning of the enemy */
-		var delaySpawn: Number = 10;
+		var delaySpawn: Number = 15;
 		
-		var delaySpawn2: Number = 20;
+		var delaySpawn2: Number = 30;
 		
-		var delaySpawn3: Number = 30;
+		var delaySpawn3: Number = 45;
 		
 		/** this var delays the spawn of rapid fire powerup */
 		var rapidDelaySpawn: Number = 0;
@@ -155,8 +155,6 @@ package code {
 		  * all info is then returned back to the GameScene so that it can update
 		  */
 		override public function update(): GameScene {
-
-			Time.update(); // updates time
 			
 			KeyboardInput.setup(stage); // adds a keyboard to the stage
 			
@@ -730,6 +728,7 @@ package code {
 					
 					
 					// turns all other powerups but this one off
+					cPowerUps[i].isDead = true;
 					hasChargeFire = true;
 					rapidFire = false;
 					hasRapidFire = false;

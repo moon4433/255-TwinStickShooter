@@ -33,6 +33,8 @@ package code {
 			
 			if(gameScene) switchScene(gameScene.update()); // if gameScene is called, prompt switchScene(switches the scenes)
 			
+			Time.update(); // updates time
+			
 		} // ends gameLoop
 		
 		/**
