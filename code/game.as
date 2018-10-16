@@ -9,7 +9,7 @@ package code {
 	public class game extends MovieClip {
 		
 		/** places a new variable to hold any keyboard inputs */
-		private var keyboard:KeyboardInput;
+		//private var keyboard:KeyboardInput;
 		
 		/**
 		 * This stores the current scene using a FSM.
@@ -18,9 +18,6 @@ package code {
 
 		/** this is the game function, which really only handles scene switches due to the state machine set up */
 		public function game() {
-			
-			
-			keyboard = new KeyboardInput(stage); // adds keyboard inputs to the stage, and tells the stage to listen for any inputs
 			
 			switchScene(new SceneTitle()); // sets the current scene to the title scene	
 			
@@ -34,7 +31,7 @@ package code {
 		  */
 		private function gameLoop(e:Event):void {
 			
-			if(gameScene) switchScene(gameScene.update(keyboard)); // if gameScene is called, prompt switchScene(switches the scenes)
+			if(gameScene) switchScene(gameScene.update()); // if gameScene is called, prompt switchScene(switches the scenes)
 			
 		} // ends gameLoop
 		

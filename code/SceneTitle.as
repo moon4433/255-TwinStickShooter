@@ -15,7 +15,7 @@ package code {
 		  * this is the update function for the title scene
 		  * @param keyboard it is holding a KeyboardInput class instance inside the variable so that any keyboard inputs will be read in this scene
 		  */
-		override public function update(keyboard:KeyboardInput):GameScene {
+		override public function update():GameScene {
 			
 			if(shouldSwitchToPlay) return new ScenePlay(); // if it should switch, return to GameScene and add a new ScenePlay
 			

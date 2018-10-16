@@ -18,7 +18,7 @@ package code {
 		  * this is the update function for the player class
 		  * @param keyboard it is holding a KeyboardInput class instance inside the variable so that any keyboard inputs will be read in this scene
 		  */
-		public function update(keyboard:KeyboardInput):void {
+		public function update():void {
 			// if left key is down, move left...
 			
 			var speed:Number = 200; // sets the speed of the Player
@@ -30,10 +30,10 @@ package code {
 			
 			rotation = angle + 90; // sets rotation of player
 			
-			if(keyboard.keyLeft) x -= speed * Time.dtScaled; // if player is prompted to move left do this times deltaTime
-			if(keyboard.keyUp) y -= speed * Time.dtScaled; // if player is prompted to move up do this times deltaTime
-			if(keyboard.keyRight) x += speed * Time.dtScaled; // if player is prompted to move right do this times deltaTime
-			if(keyboard.keyDown) y += speed * Time.dtScaled; // if player is prompted to move down do this times deltaTime
+			if(KeyboardInput.keyLeft) x -= speed * Time.dtScaled; // if player is prompted to move left do this times deltaTime
+			if(KeyboardInput.keyUp) y -= speed * Time.dtScaled; // if player is prompted to move up do this times deltaTime
+			if(KeyboardInput.keyRight) x += speed * Time.dtScaled; // if player is prompted to move right do this times deltaTime
+			if(KeyboardInput.keyDown) y += speed * Time.dtScaled; // if player is prompted to move down do this times deltaTime
 		
 		} // end update
 	} // end  class

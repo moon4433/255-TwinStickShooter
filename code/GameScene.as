@@ -16,7 +16,7 @@ package code {
 		 * Each game scene should OVERRIDE this method
 		 * and add specific implementation.
 		 */
-		public function update(keyboard:KeyboardInput):GameScene {
+		public function update():GameScene {
 			return null; // this returns the update function as null
 		}
 		/** place holder function for anything being added to the scene like eventlisteners or anyhting */

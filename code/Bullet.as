@@ -21,7 +21,7 @@ package code {
 		public var isDead:Boolean = false;
 		
 		/** sets the length of the barrel so that the bullet can spawn at the end of it */
-		private const barrelLength:Number = 53;
+		private const barrelLength:Number = 55;
 		
 		/** place holder to set the angel for the barrel */
 		private var barrelAngle:Number = 0;

@@ -22,6 +22,10 @@ package code {
 		/** builds a array to hold any enemies */
 		var enemies: Array = new Array(); 
 		
+		var enemies2: Array = new Array(); 
+		
+		var enemies3: Array = new Array(); 
+		
 		/** This array holds only the enemies' bullets. */
 		var bulletsBad:Array = new Array();
 
@@ -29,7 +33,11 @@ package code {
 		var powerupSlowmoTimer: Number = 0;
 
 		/** this var is to delay the spawning of the enemy */
-		var delaySpawn: Number = 10;
+		var delaySpawn: Number = 25;
+		
+		var delaySpawn2: Number = 25;
+		
+		var delaySpawn3: Number = 25;
 		
 		/** this var delays the spawn of rapid fire powerup */
 		var rapidDelaySpawn: Number = 0;
@@ -127,13 +135,19 @@ package code {
 		  * this is the update function for the ScenePlay class
 		  * @param keyboard it is holding a KeyboardInput class instance inside the variable so that any keyboard inputs will be read in this scene
 		  */
-		override public function update(keyboard: KeyboardInput): GameScene {
+		override public function update(): GameScene {
 
 			Time.update(); // updates time
 			
-			player.update(keyboard); // updates the player
+			KeyboardInput.setup(stage);
+			
+			player.update(); // updates the player
 			
 			spawnEnemyOne(); // spawns enemie one
+			
+			spawnEnemyTwo();
+			
+			spawnEnemyThree();
 			
 			updatePowerUps(); // updates power ups
 			
@@ -162,8 +176,8 @@ package code {
 			if (playerHealth <= 0) // if players health hits 0
 				{
 				myChannel.stop();
-				var start: StartButton = new StartButton();
-				start.play();
+				var lose: GameOver = new GameOver();
+				lose.play();
 				return new SceneLose(); // go to scene lose
 				}
 
@@ -188,6 +202,8 @@ package code {
 				rapidDelaySpawn -= Time.dtScaled;
 				 if (rapidDelaySpawn <= Time.dtScaled) {
 					spawnBullet();
+					var blip1: SoundBlip1 = new SoundBlip1();
+					blip1.play();
 					rapidDelaySpawn = 5 * Time.dtScaled;
 					}
 			}
@@ -255,24 +271,25 @@ package code {
 		private function downHandleClick(e: MouseEvent): void {
 			
 			if(hasRapidFire){
+			rapidFire = true;
 				
-			rapidFire = true;	
 			}	
 			else if (hasChargeFire) {
 			chargeFire = true;
+				
 
 			}
 			else if(hasTriFire){
 				spawnTriShot();
-				var bli2: SoundBlip1 = new SoundBlip1();
-				bli2.play();
+				var bli3: SoundBlip3 = new SoundBlip3();
+				bli3.play();
 				
 			}
 			else
 			{
 				spawnBullet();
-				var blip: SoundBlip2 = new SoundBlip2();
-				blip.play();
+				var blip4: SoundBlip4 = new SoundBlip4();
+				blip4.play();
 			}
 		}
 
@@ -293,6 +310,9 @@ package code {
 				expandHeight = 0;
 				expandRadius = 0;
 				chargeFire = false;
+				
+				var blip2: SoundBlip2 = new SoundBlip2();
+				blip2.play();
 			}
 		}
 		
@@ -319,7 +339,7 @@ package code {
 			bullets.push(b3);
 			
 		}
-
+		
 		public function spawnBullet(s:Enemy1 = null): void {
 			
 			var b: Bullet = new Bullet(player, s);
@@ -327,6 +347,81 @@ package code {
 			if(s) bulletsBad.push(b);
 			else bullets.push(b);
 
+		}
+		
+		public function spawnBullet2(n:Enemy2 = null):void {
+			var enB1:Bullet2 = new Bullet2(player, n);
+			var enB2:Bullet2 = new Bullet2(player, n);
+			var enB3:Bullet2 = new Bullet2(player, n);
+			
+			enB2.angleEn = (n.rotation - 70) * Math.PI / 180; // sets the angle in which the bullet should travel
+			enB2.velocityX = enB2.SPEED * Math.cos(enB2.angleEn); // gets the end x of the vector and stores it in a variable
+			enB2.velocityY = enB2.SPEED * Math.sin(enB2.angleEn); // gets the end y of the vector and stores it in a variable
+			
+			enB3.angleEn = (n.rotation - 110) * Math.PI / 180; // sets the angle in which the bullet should travel
+			enB3.velocityX = enB3.SPEED * Math.cos(enB3.angleEn); // gets the end x of the vector and stores it in a variable
+			enB3.velocityY = enB3.SPEED * Math.sin(enB3.angleEn); // gets the end y of the vector and stores it in a variable
+
+			addChildAt(enB1, 0);
+			addChildAt(enB2, 0);
+			addChildAt(enB3, 0);
+			
+			bulletsBad.push(enB1);
+			bulletsBad.push(enB2);
+			bulletsBad.push(enB3);
+		}
+		
+		public function spawnBullet3(m:Enemy3 = null):void {
+			var en2B1:Bullet3 = new Bullet3(player, m);
+			var en2B2:Bullet3 = new Bullet3(player, m);
+			var en2B3:Bullet3 = new Bullet3(player, m);
+			var en2B4:Bullet3 = new Bullet3(player, m);
+			
+					
+			en2B1.x = m.x; // sets the bullets x position equal to the enemy1 x position
+			en2B1.y = m.y; // sets the bullets y position equal to the enemy1 y position
+				
+			en2B2.x = m.x; // sets the bullets x position equal to the enemy1 x position
+			en2B2.y = m.y; // sets the bullets y position equal to the enemy1 y position
+			
+			en2B3.x = m.x; // sets the bullets x position equal to the enemy1 x position
+			en2B3.y = m.y; // sets the bullets y position equal to the enemy1 y position
+			
+			en2B4.x = m.x; // sets the bullets x position equal to the enemy1 x position
+			en2B4.y = m.y; // sets the bullets y position equal to the enemy1 y position
+			
+			en2B1.angleEn = (m.rotation - 90) * Math.PI / 180; // sets the angle in which the bullet should travel
+			en2B1.velocityX = en2B1.SPEED * Math.cos(en2B1.angleEn); // gets the end x of the vector and stores it in a variable
+			en2B1.velocityY = en2B1.SPEED * Math.sin(en2B1.angleEn); // gets the end y of the vector and stores it in a variable
+			
+			////////////////////////////////////////////////////////////////////////////////////
+			
+			en2B2.angleEn = (m.rotation - 180) * Math.PI / 180; // sets the angle in which the bullet should travel
+			en2B2.velocityX = en2B2.SPEED * Math.cos(en2B2.angleEn); // gets the end x of the vector and stores it in a variable
+			en2B2.velocityY = en2B2.SPEED * Math.sin(en2B2.angleEn); // gets the end y of the vector and stores it in a variable
+			
+			///////////////////////////////////////////////////////////////////////////////////
+			
+			en2B3.angleEn = (m.rotation - 270) * Math.PI / 180; // sets the angle in which the bullet should travel
+			en2B3.velocityX = en2B3.SPEED * Math.cos(en2B3.angleEn); // gets the end x of the vector and stores it in a variable
+			en2B3.velocityY = en2B3.SPEED * Math.sin(en2B3.angleEn); // gets the end y of the vector and stores it in a variable
+			
+			///////////////////////////////////////////////////////////////////////////////////
+			
+			en2B4.angleEn = (m.rotation - 360) * Math.PI / 180; // sets the angle in which the bullet should travel
+			en2B4.velocityX = en2B4.SPEED * Math.cos(en2B4.angleEn); // gets the end x of the vector and stores it in a variable
+			en2B4.velocityY = en2B4.SPEED * Math.sin(en2B4.angleEn); // gets the end y of the vector and stores it in a variable
+
+			
+			addChildAt(en2B1, 0);
+			addChildAt(en2B2, 0);
+			addChildAt(en2B3, 0);
+			addChildAt(en2B4, 0);
+			
+			bulletsBad.push(en2B1);
+			bulletsBad.push(en2B2);
+			bulletsBad.push(en2B3);
+			bulletsBad.push(en2B4);
 		}
 		
 		public function spawnCPowerUp():void {
@@ -455,10 +550,38 @@ package code {
 		  
 		}
 		
+		private function spawnEnemyTwo(): void {
+			
+			if(isEnemiesAlive){
+				delaySpawn2 -= Time.dtScaled;
+				if (delaySpawn2 <= 0) {
+					var en2:Enemy2 = new Enemy2();
+					addChild(en2);
+					enemies.push(en2);
+					delaySpawn2 = (int)(Math.random() * 7 + 2);
+				}
+			}
+		  
+		}
+		
+		private function spawnEnemyThree(): void {
+			
+			if(isEnemiesAlive){
+				delaySpawn3 -= Time.dtScaled;
+				if (delaySpawn3 <= 0) {
+					var en3:Enemy3 = new Enemy3();
+					addChild(en3);
+					enemies.push(en3);
+					delaySpawn3 = (int)(Math.random() * 7 + 2);
+				}
+			}
+		  
+		}
 
 		private function updateEnemies(): void {
 			for (var i = enemies.length - 1; i >= 0; i--) {
 				enemies[i].update(this);
+				
 				if (enemies[i].isDead) {
 					// remove it!!
 
@@ -472,8 +595,8 @@ package code {
 				}
 			}
 		}
-		
 
+		
 		private function collisionDetection(): void {
 			for (var i: int = 0; i < enemies.length; i++) {
 				for (var j: int = 0; j < bullets.length; j++) {
@@ -489,7 +612,21 @@ package code {
 					}
 				}
 			}
-		} // end enemy collision detection
+		
+			for (var i: int = 0; i < enemies.length; i++) {
+				
+					var tx: Number = enemies[i].x - player.x;
+					var ty: Number = enemies[i].y - player.y;
+					var tdis: Number = Math.sqrt(tx * tx + ty * ty);
+					if (tdis < enemies[i].radius + player.radius) {
+
+						enemies[i].isDead = true;
+						playerHealth -= 20;
+
+					}
+				}
+			} // end enemy collision detection
+		
 		
 		private function shipCollisionDetection(): void {
 			for (var i: int = 0; i < bulletsBad.length; i++) {
@@ -499,8 +636,10 @@ package code {
 				var sDis: Number = Math.sqrt(sx * sx + sy * sy);
 				if (sDis < player.radius + bulletsBad[i].radius) {
 					// collision!
-					playerHealth -= 10;
+					playerHealth -= 50;
 					bulletsBad[i].isDead = true;
+					var start: StartButton = new StartButton();
+					start.play();
 				}
 			}
 		} // end shipCollision
@@ -570,12 +709,6 @@ package code {
 		}
 		override public function onEnd(): void {
 			isEnemiesAlive = false;
-			for (var i: int = 0; i < bullets.length; i++) {
-				enemies[i].isDead = true;
-				cPowerUps[i].isDead = true;
-				rPowerUps[i].isDead = true;
-				tPowerUps[i].isDead = true;
-			}
 			stage.removeEventListener(MouseEvent.MOUSE_DOWN, downHandleClick);
 			stage.removeEventListener(MouseEvent.MOUSE_UP, upHandleClick);
 		}

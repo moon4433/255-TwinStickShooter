@@ -1,10 +1,15 @@
 ﻿/** the package/folder that the sceneLose class is located in */
 package code {
 	
-	import flash.display.MovieClip; // imports the movie clip into this code so it can be accessed
+	import flash.display.MovieClip;
+	import flash.events.MouseEvent;
+
+ // imports the movie clip into this code so it can be accessed
 	
 	/** this is the SceneLose class, and it is extening(giving its info) to the GameScene class so that it can use its info */
 	public class SceneLose extends GameScene {
+		
+		private var shouldSwitchToPlay:Boolean = false; // sets if the title should switch from title - play or not
 		
 		/** the sceneLose function, which holds nothing. But if we wanted to add or alter anything in this scene it would go here */
 		public function SceneLose() {
@@ -16,13 +21,31 @@ package code {
 		  * this update function is looking for when the player presses entter on the keyboard
 		  * @param keyboard it is holding a KeyboardInput class instance inside the variable so that any keyboard inputs will be read in this scene
 		  */
-		override public function update(keyboard:KeyboardInput):GameScene {
+		override public function update():GameScene {
 			
-			if(keyboard.keyEnter) return new SceneTitle(); // if enter is pressed on the keyboard, change back to the title screen
+			if(KeyboardInput.keyEnter || shouldSwitchToPlay) return new SceneTitle(); // if enter is pressed on the keyboard, change back to the title screen
 			
 			return null; // return no info after done
 			
 		} // end update function
+		
+		/* this function updates the scene if there is and event listeners needed to be added */
+		override public function onBegin():void {
+			bttnRestart.addEventListener(MouseEvent.MOUSE_DOWN, handleClickPlay);
+		}
+		/* this function updates the scene if there is and event listeners needed to be removed */
+		override public function onEnd():void {
+			bttnRestart.removeEventListener(MouseEvent.MOUSE_DOWN, handleClickPlay);
+		}
+		/** 
+		  * this function handles the clicking of the button
+		  * @param e takes the mouse event into a variable to be used
+		  */
+		private function handleClickPlay(e:MouseEvent):void {
+			shouldSwitchToPlay = true; // sets the scene switching process
+			
+		}
+		
 		
 	} // end SceneLose class
 	

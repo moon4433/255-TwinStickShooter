@@ -8,17 +8,17 @@ package code {
 	/** this is the KeyboardInput class */
 	public class KeyboardInput {
 
-		public var keyLeft:Boolean = false;
-		public var keyUp:Boolean = false;
-		public var keyRight:Boolean = false;
-		public var keyDown:Boolean = false;
-		public var keyEnter:Boolean = false;
+		static public var keyLeft:Boolean = false;
+		static public var keyUp:Boolean = false;
+		static public var keyRight:Boolean = false;
+		static public var keyDown:Boolean = false;
+		static public var keyEnter:Boolean = false;
 		
-		public function KeyboardInput(stage:Stage) {
+		static public function setup(stage:Stage) {
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, handleKeyDown);
 			stage.addEventListener(KeyboardEvent.KEY_UP, handleKeyUp);
 		}
-		private function updateKey(keyCode:int, isDown:Boolean):void {
+		static private function updateKey(keyCode:int, isDown:Boolean):void {
 			
 			if(keyCode == 13) keyEnter = isDown;
 			if(keyCode == 65) keyLeft = isDown;
@@ -26,11 +26,11 @@ package code {
 			if(keyCode == 68) keyRight = isDown;
 			if(keyCode == 83) keyDown = isDown;
 		}
-		private function handleKeyDown(e:KeyboardEvent):void {
+		static private function handleKeyDown(e:KeyboardEvent):void {
 			//trace(e.keyCode);
 			updateKey(e.keyCode, true);
 		}
-		private function handleKeyUp(e:KeyboardEvent):void {
+		static private function handleKeyUp(e:KeyboardEvent):void {
 			
 			updateKey(e.keyCode, false);
 		}
