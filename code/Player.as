@@ -34,6 +34,10 @@ package code {
 			if(KeyboardInput.keyUp) y -= speed * Time.dtScaled; // if player is prompted to move up do this times deltaTime
 			if(KeyboardInput.keyRight) x += speed * Time.dtScaled; // if player is prompted to move right do this times deltaTime
 			if(KeyboardInput.keyDown) y += speed * Time.dtScaled; // if player is prompted to move down do this times deltaTime
+			
+			
+			
+			
 		
 		} // end update
 	} // end  class

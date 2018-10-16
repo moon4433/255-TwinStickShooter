@@ -26,7 +26,7 @@ package code {
 		/** place holder function for anything being removed to the scene like eventlisteners or anyhting */
 		public function onEnd():void {
 			
-		}
+		} 
 
-	}
-}
+	} // end class
+} // end package

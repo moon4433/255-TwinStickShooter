@@ -23,7 +23,7 @@ package code {
 			// constructor code
 			
 			x = -50; // sets objects x to be out of the border
-			y = Math.random() * 400; // sets objects y to be at a random y location
+			y = Math.random() * 800; // sets objects y to be at a random y location
 			speed = Math.random() * 90 + 60; // 60 to 150
 			
 		}// end rPowerUp function
@@ -35,7 +35,7 @@ package code {
 			x += (speed + 1) * Time.dtScaled; // moves the obj right times delta time
 			
 			/* if the object goes past this point, its unspawned */
-			if(x > 600){
+			if(x > 1050){
 				isDead = true;
 			} // end if
 

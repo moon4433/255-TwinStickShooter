@@ -23,7 +23,7 @@ package code {
 		
 		/** enemy1 function, which holds the constructs of the enemy1 class */
 		public function Enemy1() {
-			x = 275; // sets the x position of enemy1
+			x = Math.random() * 1000; // sets objects x to be at a random x location
 			y = - 50; // sets the y potion of enemy1
 			speed = Math.random() * 75 + 50; // 50 to 125?
 			

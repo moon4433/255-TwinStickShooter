@@ -1,8 +1,10 @@
-﻿package code {
+﻿/** the package/folder that the bullet class is located in */
+package code {
 	
+	/** this imports the movie clip into this class so this object can use vars from other classes  */
 	import flash.display.MovieClip;
 	
-	
+	/** this is the bullet class, and it is extening(giving its info) to the movieclip class so that it can use its info */
 	public class Bullet3 extends MovieClip {
 		
 		/** seting the vectors length, and since this is a continuous moving vector it is labled as speed */
@@ -25,7 +27,7 @@
 		public var fx:Number; // holder variable for x
 		public var fy:Number; // holder variable for y
 		
-		var angleEn:Number;
+		var angleEn:Number; // this is the second angle that determines the bullets trajectory
 		
 		public var radius:Number = 6.5; // sets the radius of the bullet
 	

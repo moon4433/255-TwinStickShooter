@@ -21,7 +21,7 @@ package code {
 		/** this function is the constructor function, which holds the starting content when program starts */
 		public function tPowerUp() {
 			// constructor code
-			x = Math.random() * 550; // sets objects x to be at a random x location
+			x = Math.random() * 1000; // sets objects x to be at a random x location
 			y = - 50; // sets objects y to be out of the border
 			speed = Math.random() * 90 + 60; // 60 to 150
 		}// end tPowerUp
@@ -33,7 +33,7 @@ package code {
 			x += myNum * Time.dtScaled; // updates the obj to move on a rand angle times delta time
 			
 			/* if the object goes past this point, its unspawned */
-			if(y > 400){
+			if(y > 800){
 				isDead = true;
 			}// end if
 

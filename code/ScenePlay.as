@@ -21,9 +21,7 @@ package code {
 
 		/** builds a array to hold any enemies */
 		var enemies: Array = new Array(); 
-		
 		var enemies2: Array = new Array(); 
-		
 		var enemies3: Array = new Array(); 
 		
 		/** This array holds only the enemies' bullets. */
@@ -33,17 +31,20 @@ package code {
 		var powerupSlowmoTimer: Number = 0;
 
 		/** this var is to delay the spawning of the enemy */
-		var delaySpawn: Number = 25;
+		var delaySpawn: Number = 10;
 		
-		var delaySpawn2: Number = 25;
+		var delaySpawn2: Number = 20;
 		
-		var delaySpawn3: Number = 25;
+		var delaySpawn3: Number = 30;
 		
 		/** this var delays the spawn of rapid fire powerup */
 		var rapidDelaySpawn: Number = 0;
 		
 		/** this var sets up the players health */
 		var playerHealth:int = 100;
+		
+		/** this var sets up the players score */
+		var playerScore:int = 0;
 		
 		/** this var sets up a text field so that this class can use it */
 		var txt:TextField = new TextField();
@@ -86,11 +87,11 @@ package code {
 		var expandRadius: Number = 0;
 		
 		/** this var holds sets the spawn rate of charge power */
-		var cPowerUpDelay:Number = 15;
+		var cPowerUpDelay:Number = 10;
 		/** this var holds sets the spawn rate of rapid power */
-		var rPowerUpDelay:Number = 30;
+		var rPowerUpDelay:Number = 20;
 		/** this var holds sets the spawn rate of tri power */
-		var tPowerUpDelay:Number = 45;
+		var tPowerUpDelay:Number = 30;
 		/** this var holds the countdown for when player has powerup */
 		var cPowerupTimer:Number = 5;
 		/** this var holds the countdown for when player has powerup */
@@ -104,21 +105,29 @@ package code {
 		/** this bool tells game if r powerup has spawned */
 		var hasRPowerSpawned:Boolean = false;
 		
+		/** hold the games music in a music var so that it can be accessed when game is played */		
 		private var music: BackMusic = new BackMusic();
+		/** this var holds a new sound channel, which is the thing that controls whether the music is playing or not */
 		private var myChannel: SoundChannel = new SoundChannel();
+		
+		/** this var sets up a text field so that this class can use it */
+		var txt2:TextField = new TextField();
+		
+		/** this allows for the format of the text field to be changed */
+		var textF2:TextFormat = new TextFormat();
 		
 		
 		/** this is the scene play function */
 		public function ScenePlay() {
 
 			player = new Player(); // spawn a new player instance
-			player.x = 296.2; // set players x
-			player.y = 348.95; // sets players y
+			player.x = 500; // set players x
+			player.y = 400; // sets players y
 			addChild(player); // adds player to the scene
 			
 			isEnemiesAlive = true; // sets enemies to being alive
 			
-			myChannel = music.play();
+			myChannel = music.play(); // starts playing the game music
 			
 			textF.size = 28; // Text size (in pixels)
 			txt.x = 0; //  Distance from the left edge
@@ -129,25 +138,35 @@ package code {
 			txt.setTextFormat(textF); // sets format to textF
 			addChild(txt); // adds the text to screen
 			
+			textF2.size = 28; // Text size (in pixels)
+			txt2.x = 0; //  Distance from the left edge
+			txt2.y = 40; // Distance from the top edge
+			txt2.width = 200; // Lenght of the text field
+			txt2.textColor = 0xFFFFFF; // Text color
+			txt2.text = "Score: " + playerScore; // Adds text
+			txt2.setTextFormat(textF2); // sets format to textF
+			addChild(txt2); // adds the text to screen
+			
 		}//end scene play
 
 		/**
 		  * this is the update function for the ScenePlay class
 		  * @param keyboard it is holding a KeyboardInput class instance inside the variable so that any keyboard inputs will be read in this scene
+		  * all info is then returned back to the GameScene so that it can update
 		  */
 		override public function update(): GameScene {
 
 			Time.update(); // updates time
 			
-			KeyboardInput.setup(stage);
+			KeyboardInput.setup(stage); // adds a keyboard to the stage
 			
 			player.update(); // updates the player
 			
 			spawnEnemyOne(); // spawns enemie one
 			
-			spawnEnemyTwo();
+			spawnEnemyTwo(); // spawns enemy two
 			
-			spawnEnemyThree();
+			spawnEnemyThree(); // spawns enemy three
 			
 			updatePowerUps(); // updates power ups
 			
@@ -175,69 +194,72 @@ package code {
 
 			if (playerHealth <= 0) // if players health hits 0
 				{
-				myChannel.stop();
-				var lose: GameOver = new GameOver();
-				lose.play();
+				myChannel.stop(); // stops music
+				var lose: GameOver = new GameOver(); // holds new gameover sound
+				lose.play(); // plays game over sound
 				return new SceneLose(); // go to scene lose
 				}
 
-			return null;	
+			return null; // return with nothing
 		}
 		
+		/** this function is responsible for updating all power ups */
 		private function updatePowerUps():void {
 			
+			/** if player does not have charge power up */
 			if(hasCPowerSpawned == false){
-			spawnCPowerUp();
+			spawnCPowerUp(); // spawn charge power up
 			}
-			
+			/** if player does not have Rapid power up */
 			if(hasRPowerSpawned == false){
-			spawnRPowerUp();
+			spawnRPowerUp();// spawn Rapid power up
 			}
-			
+			/** if player does not have Triple power up */
 			if(hasTPowerSpawned == false){
-			spawnTPowerUp();
+			spawnTPowerUp();// spawn Triple power up
 			}
 			
+			/** if player is firing with rapid fire */
 			if(rapidFire){
-				rapidDelaySpawn -= Time.dtScaled;
-				 if (rapidDelaySpawn <= Time.dtScaled) {
-					spawnBullet();
-					var blip1: SoundBlip1 = new SoundBlip1();
-					blip1.play();
-					rapidDelaySpawn = 5 * Time.dtScaled;
+				rapidDelaySpawn -= Time.dtScaled; // delay the spawn
+				 if (rapidDelaySpawn <= Time.dtScaled) { // if time is equal to delta time, then
+					spawnBullet(); // spawn bullet
+					var blip1: SoundBlip1 = new SoundBlip1(); // hold rapid fire sound
+					blip1.play(); // play rapid fire sound
+					rapidDelaySpawn = 5 * Time.dtScaled; // resets the rapid fire spawn delay 
 					}
 			}
 			
+			/** if player has the charge fire power up */
 			if (chargeFire) {
 				expandWidth += .05;
 				expandHeight += .05;
 				expandRadius += .5;
-				if(expandWidth >= 3 && expandHeight >= 3 && expandRadius >= 30){
+				if(expandWidth >= 3 && expandHeight >= 3 && expandRadius >= 30){ // if the width height and radius get past the max size, hold it at the max
 					expandWidth = 3;
 					expandHeight = 3;
 					expandRadius = 30;
 				}
 			}
 			
+			/** if the player has tri fire power up  set a timer to count down how long player has it*/
 			if(hasTriFire){
 			tPowerupTimer -= Time.dtScaled;
 			if(tPowerupTimer <= 0){
-				
 				hasTriFire = false;
 				tPowerupTimer = 10;
 				}
 			}
-			
+			/** if the player has rapid fire power up  set a timer to count down how long player has it*/
 			if(hasRapidFire){
 			rPowerupTimer -= Time.dtScaled;
 			if(rPowerupTimer <= 0){
-				
 				rapidFire = false;
 				hasRapidFire = false;
 				rPowerupTimer = 10;
 				}
 			}
-			
+			/** if the player has Charge fire power up  set a timer to count down how long player has it*/
 			if(hasChargeFire){
 			cPowerupTimer -= Time.dtScaled;
 			if(cPowerupTimer <= 0){
@@ -246,17 +268,20 @@ package code {
 				cPowerupTimer = 15;
 				}
 			}
+			/** if the player has Slow mo power up,  set a timer to count down how long player has it*/
 			if (powerupSlowmoTimer > 0) {
 
-				Time.scale = .5;
+				Time.scale = .5; // sets time scale.... slow down time
 				powerupSlowmoTimer -= Time.dt;
 
 			} else {
-				Time.scale = 1;
+				Time.scale = 1; // resets time back to default
 			}
 		}
 		
+		/** this function handles updating any text that is in the game */
 		private function updateText():void {
+			
 			removeChild(txt);
 			textF.size = 28;               // Text size (in pixels)
 			txt.x = 0;                     //  Distance from the left edge
@@ -266,8 +291,19 @@ package code {
 			txt.text = "Health: " + playerHealth;     // Adds text
 			txt.setTextFormat(textF);
 			addChild(txt);
+			
+			removeChild(txt2);
+			textF2.size = 28;               // Text size (in pixels)
+			txt2.x = 0;                     //  Distance from the left edge
+			txt2.y = 40;                     // Distance from the top edge
+			txt2.width = 200;                // Lenght of the text field
+			txt2.textColor = 0xFFFFFF;       // Text color
+			txt2.text = "Score: " + playerScore;     // Adds text
+			txt2.setTextFormat(textF2);
+			addChild(txt2);
 		}
 
+		
 		private function downHandleClick(e: MouseEvent): void {
 			
 			if(hasRapidFire){
@@ -292,21 +328,26 @@ package code {
 				blip4.play();
 			}
 		}
-
+		/**
+		  * this function handles when ever the mousebutton is released
+		  * @param f passes any mouse eventts into this function to access
+		  */
 		private function upHandleClick(f: MouseEvent): void {
+			/** if player has rapid fire power up */
 			if(hasRapidFire){
 			rapidFire = false;	
 			}
+			/** if player has charge shot */
 			if (hasChargeFire) {
-				var chargeShot:Bullet = new Bullet(player);
-				var oldScaleX:Number = chargeShot.scaleX;
-				var oldScaleY:Number = chargeShot.scaleY;
-				chargeShot.scaleX += expandWidth;
-				chargeShot.scaleY += expandHeight;
-				chargeShot.radius += expandRadius;
-				addChildAt(chargeShot, 0);
-				bullets.push(chargeShot);
-				expandWidth = 0;
+				var chargeShot:Bullet = new Bullet(player); // holds bullet
+				var oldScaleX:Number = chargeShot.scaleX; // puts current scale x into var
+				var oldScaleY:Number = chargeShot.scaleY; // puts current scale y into var
+				chargeShot.scaleX += expandWidth; // setts new width
+				chargeShot.scaleY += expandHeight; // sets new height
+				chargeShot.radius += expandRadius; // setts new radius
+				addChildAt(chargeShot, 0); // adds the object
+				bullets.push(chargeShot); // pushes it into bullets array
+				expandWidth = 0; 
 				expandHeight = 0;
 				expandRadius = 0;
 				chargeFire = false;
@@ -316,6 +357,9 @@ package code {
 			}
 		}
 		
+		/**
+		  * this function handles spawning the bullet for the player
+		  */
 		public function spawnTriShot():void {
 			var b1:Bullet = new Bullet(player);
 			var b2:Bullet = new Bullet(player);
@@ -339,7 +383,10 @@ package code {
 			bullets.push(b3);
 			
 		}
-		
+		/**
+		  * this function handles spawning the bullet for enemy 1 and the player
+		  * @param m passes an enemy1 instance in so that this function can access it
+		  */
 		public function spawnBullet(s:Enemy1 = null): void {
 			
 			var b: Bullet = new Bullet(player, s);
@@ -349,6 +396,10 @@ package code {
 
 		}
 		
+		/**
+		  * this function handles spawning the bullet for enemy 2
+		  * @param n passes an enemy2 instance in so that this function can access it
+		  */
 		public function spawnBullet2(n:Enemy2 = null):void {
 			var enB1:Bullet2 = new Bullet2(player, n);
 			var enB2:Bullet2 = new Bullet2(player, n);
@@ -371,6 +422,10 @@ package code {
 			bulletsBad.push(enB3);
 		}
 		
+		/**
+		  * this function handles spawning the bullet for enemy 3
+		  * @param m passes an enemy3 instance in so that this function can access it
+		  */
 		public function spawnBullet3(m:Enemy3 = null):void {
 			var en2B1:Bullet3 = new Bullet3(player, m);
 			var en2B2:Bullet3 = new Bullet3(player, m);
@@ -510,7 +565,8 @@ package code {
 				}
 			}
 		}
-
+		
+		/** updates any bullets */
 		public function updateBullets(): void {
 			// update everything:
 			for (var i = bullets.length - 1; i >= 0; i--) {
@@ -536,6 +592,7 @@ package code {
 			
 		} // end update bullets
 
+		/** this function handles spawning of the first enemy */
 		private function spawnEnemyOne(): void {
 			
 			if(isEnemiesAlive){
@@ -549,7 +606,7 @@ package code {
 			}
 		  
 		}
-		
+		/** this function handles spawning of the second enemy */
 		private function spawnEnemyTwo(): void {
 			
 			if(isEnemiesAlive){
@@ -564,6 +621,7 @@ package code {
 		  
 		}
 		
+		/** this function handles spawning of the third enemy */
 		private function spawnEnemyThree(): void {
 			
 			if(isEnemiesAlive){
@@ -608,20 +666,21 @@ package code {
 
 						enemies[i].isDead = true;
 						bullets[j].isDead = true;
+						playerScore += 100;
 						
 					}
 				}
 			}
 		
-			for (var i: int = 0; i < enemies.length; i++) {
+			for (var v: int = 0; v < enemies.length; v++) {
 				
-					var tx: Number = enemies[i].x - player.x;
-					var ty: Number = enemies[i].y - player.y;
+					var tx: Number = enemies[v].x - player.x;
+					var ty: Number = enemies[v].y - player.y;
 					var tdis: Number = Math.sqrt(tx * tx + ty * ty);
-					if (tdis < enemies[i].radius + player.radius) {
+					if (tdis < enemies[v].radius + player.radius) {
 
-						enemies[i].isDead = true;
-						playerHealth -= 20;
+						enemies[v].isDead = true;
+						playerHealth -= 50;
 
 					}
 				}
@@ -636,7 +695,7 @@ package code {
 				var sDis: Number = Math.sqrt(sx * sx + sy * sy);
 				if (sDis < player.radius + bulletsBad[i].radius) {
 					// collision!
-					playerHealth -= 50;
+					playerHealth -= 20;
 					bulletsBad[i].isDead = true;
 					var start: StartButton = new StartButton();
 					start.play();

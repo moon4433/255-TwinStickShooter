@@ -22,8 +22,8 @@ package code {
 		public function cPowerUp() {
 			// constructor code
 			
-			x = 600; // sets objects x to be out of the border
-			y = Math.random() * 400; // sets objects y to be at a random y location 
+			x = 1050; // sets objects x to be out of the border
+			y = Math.random() * 800; // sets objects y to be at a random y location 
 			speed = Math.random() * 90 + 60; // 60 to 150
 			
 		} // end cPowerUp

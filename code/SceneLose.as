@@ -1,7 +1,9 @@
 ﻿/** the package/folder that the sceneLose class is located in */
 package code {
 	
+	/** this imports the movie clip into this class so this object can use vars from other classes  */
 	import flash.display.MovieClip;
+	/** this imports mouse events into this class  */
 	import flash.events.MouseEvent;
 
  // imports the movie clip into this code so it can be accessed

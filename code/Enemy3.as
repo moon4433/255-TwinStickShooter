@@ -1,4 +1,5 @@
-﻿package code {
+﻿/** calls the package that the class that is being called in */
+package code {
 	
 /** this imports the movie clip into this class so this object can use vars from other classes  */
 	import flash.display.MovieClip;
@@ -24,14 +25,14 @@
 		public function Enemy3() {
 			// constructor code
 			
-			x = 600; // sets the x position of enemy1
-			y = 250; // sets the y potion of enemy1
+			x = 1050; // sets the x position of enemy3
+			y = Math.random() * 800; // sets objects y to be at a random y location
 			speed = Math.random() * 75 + 50; // 50 to 125?
 			
 		}
 		
 		/**
-		  * this is the update function for the enemy1 class
+		  * this is the update function for the enemy3 class
 		  * @param game passes an instance of the current scene to this function so that it can alter certain variables
 		  */
 		public function update(game:ScenePlay):void {
@@ -43,8 +44,8 @@
 				spawnDelay = Math.random() * 1.5 + .5; // set timer to this
 			}
 			
-			var dx:Number = game.player.x - x; // sets diff of dist between player and enemy 1 x
-			var dy:Number = game.player.y - y; // sets diff of dist between player and enemy 1 y
+			var dx:Number = game.player.x - x; // sets diff of dist between player and enemy 3 x
+			var dy:Number = game.player.y - y; // sets diff of dist between player and enemy 3 y
 			angleToPlayer = Math.atan2(dy, dx); // calculates angle
 			
 			velocityY = speed * Math.sin(angleToPlayer); // sets x position of vector
@@ -54,12 +55,12 @@
 			y += velocityY * Time.dtScaled; // sets y to velocity y times deltatime
 			
 			
-			var tx:Number = game.player.x - x; // sets diff of dist between player and enemy 1 x
-			var ty:Number = game.player.y - y; // sets diff of dist between player and enemy 1 y
+			var tx:Number = game.player.x - x; // sets diff of dist between player and enemy 3 x
+			var ty:Number = game.player.y - y; // sets diff of dist between player and enemy 3 y
 			var angle:Number = Math.atan2(ty, tx); // calculates angle
 			angle *= 180 / Math.PI; // converts calculation from radians to degrees
 			
-			rotation = angle + 90; //sets rotation of enemy1
+			rotation += 2; //sets rotation of enemy3
 			
 		} // end update
 		
