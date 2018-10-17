@@ -1,8 +1,5 @@
-﻿/** this calls the location in which this code is located */
-package code {
+﻿package code {
 	
-	
-	/** this imports the movieclip into this class so that this class is part of the movieclip */
 	import flash.display.MovieClip;
 	
 	/**
@@ -17,16 +14,21 @@ package code {
 		 * and add specific implementation.
 		 */
 		public function update():GameScene {
+			
 			return null; // this returns the update function as null
+			
 		}
+		
 		/** place holder function for anything being added to the scene like eventlisteners or anyhting */
 		public function onBegin():void {
 			
 		}
+		
 		/** place holder function for anything being removed to the scene like eventlisteners or anyhting */
 		public function onEnd():void {
 			
 		} 
 
 	} // end class
+	
 } // end package

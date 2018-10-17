@@ -1,8 +1,5 @@
-﻿/** the package/folder that the bullet class is located in */
-package code {
+﻿package code {
 	
-	
-	/** this imports the movie clip into this class so this object can use vars from other classes  */
 	import flash.display.MovieClip;
 	
 	
@@ -13,8 +10,10 @@ package code {
 		/** seting the vectors length, and since this is a continuous moving vector it is labled as speed */
 		public const SPEED:Number = 240; // px/s
 		
-		/** these variables are to hold the end results of the trig equation for x and y */
+		/** this variable is going to hold the end results of the trig equation for x */
 		public var velocityX:Number = 0;
+		
+		/** this variable is going to hold the end results of the trig equation for y */
 		public var velocityY:Number = -10; 
 		
 		/** this bool var is to tell if the game should remove the spawned bullet by holding a t/f  */
@@ -26,16 +25,24 @@ package code {
 		/** place holder to set the angel for the barrel */
 		private var barrelAngle:Number = 0;
 		
-		/** place holder for a temporary x and y to be added to the existing x and y variables */
-		private var tx:Number; // holder variable for x
-		private var ty:Number; // holder variable for y
-		private var fx:Number; // holder variable for x
-		private var fy:Number; // holder variable for y
+		/** place holder for a temporary x to be added to the existing x variable */
+		private var tx:Number; 
 		
-		public var angle:Number; // empty variable for the angle of the bullets terjectory
+		/** place holder for a temporary y to be added to the existing y variable */
+		private var ty:Number; 
+
+		/** place holder for a temporary x to be added to the existing x variable */
+		private var fx:Number; 
 		
+		/** place holder for a temporary y to be added to the existing y variable */
+		private var fy:Number; 
 		
-		public var radius:Number = 6.5; // sets the radius of the bullet
+		/** empty variable for the angle of the bullets terjectory */
+		public var angle:Number; 
+		
+		/** sets the radius of the bullet */
+		public var radius:Number = 6.5; 
+		
 		
 		/**
 		  * This funtion is setting up all the different variables before the bullet actually spawns

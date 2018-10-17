@@ -1,19 +1,13 @@
-﻿/** calls the package that the class that is being called in */
-package code {
+﻿package code {
 	
-	import flash.display.MovieClip; // imports the movie clip into the code so it can be accessed
-	import flash.events.KeyboardEvent; // adds keyboard events to the code
-	import flash.events.Event; // adds events to the code
+	import flash.display.MovieClip;
+	import flash.events.KeyboardEvent;
+	import flash.events.Event;
 	
 	/** this is the game class which extends to the movie clip, which means it gives the movie clip its code */
 	public class game extends MovieClip {
 		
-		/** places a new variable to hold any keyboard inputs */
-		//private var keyboard:KeyboardInput;
-		
-		/**
-		 * This stores the current scene using a FSM.
-		 */
+		/**	This stores the current scene using a FSM. */
 		private var gameScene:GameScene;
 
 		/** this is the game function, which really only handles scene switches due to the state machine set up */
@@ -35,6 +29,7 @@ package code {
 			
 			Time.update(); // updates time
 			
+			
 		} // ends gameLoop
 		
 		/**
@@ -43,8 +38,7 @@ package code {
 		  */
 		private function switchScene(newScene:GameScene):void {
 			
-			/** if newScene is called do the following */
-			if(newScene){
+			if(newScene){ // if newScene is called do the following
 				
 				//switch scenes...
 				if(gameScene) gameScene.onEnd(); // if gameScene is called, prompt onEnd funtion in gameScene

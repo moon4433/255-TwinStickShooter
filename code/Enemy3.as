@@ -1,29 +1,35 @@
-﻿/** calls the package that the class that is being called in */
-package code {
+﻿package code {
 	
-/** this imports the movie clip into this class so this object can use vars from other classes  */
 	import flash.display.MovieClip;
-	/** this imports the current scene into this class so this object can use vars from other classes  */
+	
 	import flash.display.Scene;
 	
 	/** this is the Enemy3 class which extends to the movie clip, which means it gives the movie clip its code */
 	public class Enemy3 extends MovieClip {
 		
+		/** sets speed of obj */
+		private var speed:Number;
 		
-		private var speed:Number; // sets speed of obj
-		private var velocityX:Number; // sets x velocity of obj
-		private var velocityY:Number; // sets y velocity of obj
+		/** sets x velocity of obj */
+		private var velocityX:Number;
 		
-		public var angleToPlayer:Number; // sets the angle to player
+		/** sets y velocity of obj */
+		private var velocityY:Number;
 		
-		public var isDead:Boolean = false; // sets if obj is dead or not
+		/** sets the angle to player */
+		public var angleToPlayer:Number;
 		
-		public var radius:Number = 33; // sets radius of obj
+		/** sets if obj is dead or not */
+		public var isDead:Boolean = false;
 		
-		private var spawnDelay:Number = 0; // sets delay timer of bullets
+		/** sets radius of obj */
+		public var radius:Number = 33;
 		
+		/** sets delay timer of bullets */
+		private var spawnDelay:Number = 0;
+		
+		/** enemy1 function, which holds the constructs of the enemy3 class */
 		public function Enemy3() {
-			// constructor code
 			
 			x = 1050; // sets the x position of enemy3
 			y = Math.random() * 800; // sets objects y to be at a random y location
@@ -40,7 +46,7 @@ package code {
 			if(spawnDelay > 0){ // if time is greater than 0
 				spawnDelay -= Time.dtScaled; // subtract deltatime from timer and store it in timer
 			} else { // if not greater than 0
-				game.spawnBullet3(this);
+				game.spawnBullet3(this); // telling the ScenePlay class "hey update this like this"
 				spawnDelay = Math.random() * 1.5 + .5; // set timer to this
 			}
 			

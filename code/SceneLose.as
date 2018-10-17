@@ -1,17 +1,14 @@
-﻿/** the package/folder that the sceneLose class is located in */
-package code {
+﻿package code {
 	
-	/** this imports the movie clip into this class so this object can use vars from other classes  */
 	import flash.display.MovieClip;
-	/** this imports mouse events into this class  */
+	
 	import flash.events.MouseEvent;
-
- // imports the movie clip into this code so it can be accessed
 	
 	/** this is the SceneLose class, and it is extening(giving its info) to the GameScene class so that it can use its info */
 	public class SceneLose extends GameScene {
 		
-		private var shouldSwitchToPlay:Boolean = false; // sets if the title should switch from title - play or not
+		/** sets if the title should switch from title - play or not */
+		private var shouldSwitchToPlay:Boolean = false; 
 		
 		/** the sceneLose function, which holds nothing. But if we wanted to add or alter anything in this scene it would go here */
 		public function SceneLose() {
@@ -31,23 +28,29 @@ package code {
 			
 		} // end update function
 		
-		/* this function updates the scene if there is and event listeners needed to be added */
+		/** this function updates the scene if there is and event listeners needed to be added */
 		override public function onBegin():void {
-			bttnRestart.addEventListener(MouseEvent.MOUSE_DOWN, handleClickPlay);
-		}
-		/* this function updates the scene if there is and event listeners needed to be removed */
+			
+			bttnRestart.addEventListener(MouseEvent.MOUSE_DOWN, handleClickPlay); // adds event listener to the reset button and the stage
+
+			}
+
+		/** this function updates the scene if there is and event listeners needed to be removed */
 		override public function onEnd():void {
-			bttnRestart.removeEventListener(MouseEvent.MOUSE_DOWN, handleClickPlay);
-		}
+
+			bttnRestart.removeEventListener(MouseEvent.MOUSE_DOWN, handleClickPlay); // removes event listener from the reset button and the stage
+
+			}
+			
 		/** 
 		  * this function handles the clicking of the button
 		  * @param e takes the mouse event into a variable to be used
 		  */
 		private function handleClickPlay(e:MouseEvent):void {
+			
 			shouldSwitchToPlay = true; // sets the scene switching process
 			
 		}
-		
 		
 	} // end SceneLose class
 	

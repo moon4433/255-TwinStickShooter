@@ -1,32 +1,39 @@
-﻿/** calls the package that the class that is being called in */
-package code {
+﻿package code {
 	
-	/** this imports the movie clip into this class so this object can use vars from other classes  */
 	import flash.display.MovieClip;
-	/** this imports the current scene into this class so this object can use vars from other classes  */
+
 	import flash.display.Scene;
 	
 	/** this is the Enemy1 class which extends to the movie clip, which means it gives the movie clip its code */
 	public class Enemy1 extends MovieClip {
 		
-		private var speed:Number; // sets speed of obj
-		private var velocityX:Number; // sets x velocity of obj
-		private var velocityY:Number; // sets y velocity of obj
+		/** sets speed of obj */
+		private var speed:Number;
 		
-		public var angleToPlayer:Number; // sets the angle to player
+		/** sets x velocity of obj */
+		private var velocityX:Number;
 		
-		public var isDead:Boolean = false; // sets if obj is dead or not
+		/** sets y velocity of obj */
+		private var velocityY:Number;
 		
-		public var radius:Number = 26; // sets radius of obj
+		/** sets the angle to player */
+		public var angleToPlayer:Number;
 		
-		private var spawnDelay:Number = 0; // sets delay timer of bullets
+		/** sets if obj is dead or not */
+		public var isDead:Boolean = false;
+		
+		/** sets radius of obj */
+		public var radius:Number = 26; 
+		
+		/** sets delay timer of bullets */
+		private var spawnDelay:Number = 0; 
 		
 		/** enemy1 function, which holds the constructs of the enemy1 class */
 		public function Enemy1() {
+			
 			x = Math.random() * 1000; // sets objects x to be at a random x location
 			y = - 50; // sets the y potion of enemy1
 			speed = Math.random() * 75 + 50; // 50 to 125?
-			
 			
 		} // end constructor
 		
@@ -39,7 +46,7 @@ package code {
 			if(spawnDelay > 0){ // if time is greater than 0
 				spawnDelay -= Time.dtScaled; // subtract deltatime from timer and store it in timer
 			} else { // if not greater than 0
-				game.spawnBullet(this); // spawn bullet
+				game.spawnBullet(this); // telling the ScenePlay class "hey update this like this"
 				spawnDelay = Math.random() * 1.5 + .5; // set timer to this
 			}
 			

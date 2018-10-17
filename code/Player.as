@@ -1,7 +1,5 @@
-﻿/** calls the package that the class that is being called in */
-package code {
+﻿package code {
 	
-	/** this imports the movie clip into this class so this object can use vars from other classes  */
 	import flash.display.MovieClip;
 	
 	/** this is the Player class which extends to the movie clip, which means it gives the movie clip its code */
@@ -11,7 +9,7 @@ package code {
 		
 		/** player constructor function */
 		public function Player() {
-			// constructor code
+			// nothing :(
 		}
 		
 		/**
@@ -19,7 +17,6 @@ package code {
 		  * @param keyboard it is holding a KeyboardInput class instance inside the variable so that any keyboard inputs will be read in this scene
 		  */
 		public function update():void {
-			// if left key is down, move left...
 			
 			var speed:Number = 200; // sets the speed of the Player
 			
@@ -36,21 +33,23 @@ package code {
 			if(KeyboardInput.keyDown) y += speed * Time.dtScaled; // if player is prompted to move down do this times deltaTime
 			
 			
-				/** this entire block is to stop player from leaving arena */
-				if(!stage || y < 24) {
+				
+				if(!stage || y < 24) { // this if is to stop player from leaving the left side of the arena
 				y += speed * Time.dtScaled;
 				} 
-				if(!stage || x < 24) {
+				if(!stage || x < 24) { // this if is to stop player from leaving the top of the arena
 				x += speed * Time.dtScaled;
 				} 
-				if(!stage || x > (stage.stageWidth - 24)) {
+				if(!stage || x > (stage.stageWidth - 24)) { // this if is to stop player from leaving right side of the arena
 				x -= speed * Time.dtScaled;
 				} 
-				if(!stage || y > (stage.stageHeight - 24)) {
-				y -= speed * Time.dtScaled;
+				if(!stage || y > (stage.stageHeight - 24)) { // this if is to stop player from leaving bottom of the arena
+				y -= speed * Time.dtScaled; 
 				}
 			
 		
 		} // end update
+		
 	} // end  class
+	
 } // end package

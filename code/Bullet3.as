@@ -1,7 +1,5 @@
-﻿/** the package/folder that the bullet class is located in */
-package code {
+﻿package code {
 	
-	/** this imports the movie clip into this class so this object can use vars from other classes  */
 	import flash.display.MovieClip;
 	
 	/** this is the bullet class, and it is extening(giving its info) to the movieclip class so that it can use its info */
@@ -10,8 +8,10 @@ package code {
 		/** seting the vectors length, and since this is a continuous moving vector it is labled as speed */
 		public const SPEED:Number = 240; // px/s
 		
-		/** these variables are to hold the end results of the trig equation for x and y */
+		/** this variable is going to hold the end results of the trig equation for x */
 		public var velocityX:Number = 0;
+		
+		/** this variable is going to hold the end results of the trig equation for y */
 		public var velocityY:Number = -10; 
 		
 		/** this bool var is to tell if the game should remove the spawned bullet by holding a t/f  */
@@ -23,17 +23,24 @@ package code {
 		/** place holder to set the angel for the barrel */
 		public var barrelAngle:Number = 0;
 		
-		/** place holder for a temporary x and y to be added to the existing x and y variables */
-		public var fx:Number; // holder variable for x
-		public var fy:Number; // holder variable for y
+		/** place holder for a temporary y to be added to the existing x variable */
+		public var fx:Number; 
 		
-		var angleEn:Number; // this is the second angle that determines the bullets trajectory
+		/** place holder for a temporary y to be added to the existing y variable */
+		public var fy:Number;
 		
-		public var radius:Number = 6.5; // sets the radius of the bullet
+		/** empty variable for the angle of the bullets terjectory */
+		var angleEn:Number;
+		
+		/** sets the radius of the bullet */
+		public var radius:Number = 6.5;
 	
-		
+		/**
+		  * This funtion is setting up all the different variables before the bullet actually spawns
+		  * @param p this is passing a Player instance so that this funtion can use certain info from that class
+		  */
 		public function Bullet3(p:Player, s:Enemy3) {
-			// constructor code
+
 				
 				var ex:Number = p.x - s.x; // gets the diff between player x and enemy x
 				var ey:Number = p.y - s.y; // gets the diff between player y and enemy y
